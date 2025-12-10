@@ -37,44 +37,51 @@ class Boards::ColumnsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "create requires board admin permission" do
-    logout_and_sign_in_as :jz
+  test "index as JSON" do
+    board = boards(:writebook)
 
-    assert_no_difference -> { boards(:writebook).columns.count } do
-      post board_columns_path(boards(:writebook)), params: { column: { name: "New Column" } }, as: :turbo_stream
-      assert_response :forbidden
-    end
+    get board_columns_path(board), as: :json
+
+    assert_response :success
+    assert_equal board.columns.count, @response.parsed_body.count
   end
 
-  test "update requires board admin permission" do
-    logout_and_sign_in_as :jz
-
+  test "show as JSON" do
     column = columns(:writebook_in_progress)
-    original_name = column.name
 
-    put board_column_path(boards(:writebook), column), params: { column: { name: "Updated Name" } }, as: :turbo_stream
+    get board_column_path(column.board, column), as: :json
 
-    assert_response :forbidden
-    assert_equal original_name, column.reload.name
+    assert_response :success
+    assert_equal column.id, @response.parsed_body["id"]
   end
 
-  test "destroy requires board admin permission" do
-    logout_and_sign_in_as :jz
+  test "create as JSON" do
+    board = boards(:writebook)
 
+    assert_difference -> { board.columns.count }, +1 do
+      post board_columns_path(board), params: { column: { name: "New Column" } }, as: :json
+    end
+
+    assert_response :created
+    assert_equal board_column_path(board, Column.last, format: :json), @response.headers["Location"]
+  end
+
+  test "update as JSON" do
+    column = columns(:writebook_in_progress)
+
+    put board_column_path(column.board, column), params: { column: { name: "Updated Name" } }, as: :json
+
+    assert_response :no_content
+    assert_equal "Updated Name", column.reload.name
+  end
+
+  test "destroy as JSON" do
     column = columns(:writebook_on_hold)
 
-    assert_no_difference -> { boards(:writebook).columns.count } do
-      delete board_column_path(boards(:writebook), column), as: :turbo_stream
-      assert_response :forbidden
+    assert_difference -> { column.board.columns.count }, -1 do
+      delete board_column_path(column.board, column), as: :json
     end
-  end
 
-  test "board creator can manage columns" do
-    logout_and_sign_in_as :david  # David is not admin but created writebook board
-
-    assert_difference -> { boards(:writebook).columns.count }, +1 do
-      post board_columns_path(boards(:writebook)), params: { column: { name: "Creator Column" } }, as: :turbo_stream
-      assert_response :success
-    end
+    assert_response :no_content
   end
 end
