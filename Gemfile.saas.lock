@@ -1,17 +1,19 @@
 GIT
   remote: https://github.com/basecamp/audits1984
-  revision: c790eaec0716c8df56b3d0ab5bf5d75e3e1b0ed0
+  revision: 422b8ff25820c828b7cf09aff4923fd8cc2c6795
+  branch: flavorjones/coworker-api
   specs:
     audits1984 (0.1.7)
       console1984
       importmap-rails (>= 1.2.1)
+      jbuilder
       rinku
       rouge
       turbo-rails
 
 GIT
   remote: https://github.com/basecamp/console1984
-  revision: 02b1b9ee7fd7050174b6a98c2b43057553621dc4
+  revision: 23419ec8861e73f12ced75a3fc559d03f7be5854
   specs:
     console1984 (0.2.2)
       irb (~> 1.13)
@@ -21,9 +23,9 @@ GIT
 
 GIT
   remote: https://github.com/basecamp/lexxy
-  revision: 7c197c0afc7095c89df9cb6e24484df9e7212ac8
+  revision: 4bcf8d0213971560e90734493f8bd835addc3642
   specs:
-    lexxy (0.1.24.beta)
+    lexxy (0.7.4.beta)
       rails (>= 8.0.2)
 
 GIT
@@ -186,6 +188,9 @@ GEM
   specs:
     action_text-trix (2.1.16)
       railties
+    actionpack-xml_parser (2.0.1)
+      actionpack (>= 5.0)
+      railties (>= 5.0)
     activemodel-serializers-xml (1.0.3)
       activemodel (>= 5.0.0.a)
       activesupport (>= 5.0.0.a)
@@ -225,9 +230,9 @@ GEM
     benchmark (0.5.0)
     bigdecimal (4.0.1)
     bindex (0.8.1)
-    bootsnap (1.20.1)
+    bootsnap (1.22.0)
       msgpack (~> 1.2)
-    brakeman (7.1.2)
+    brakeman (8.0.1)
       racc
     builder (3.3.0)
     bundler-audit (0.9.3)
@@ -263,7 +268,7 @@ GEM
     erubi (1.13.1)
     et-orbi (1.4.0)
       tzinfo
-    faker (3.5.3)
+    faker (3.6.0)
       i18n (>= 1.8.11, < 2)
     ffi (1.17.2-aarch64-linux-gnu)
     ffi (1.17.2-aarch64-linux-musl)
@@ -280,6 +285,7 @@ GEM
       addressable (>= 2.5.0)
     globalid (1.3.0)
       activesupport (>= 6.1)
+    gvltools (0.4.0)
     hashdiff (1.2.1)
     i18n (1.14.8)
       concurrent-ruby (~> 1.0)
@@ -464,7 +470,6 @@ GEM
       erb
       psych (>= 4.0.0)
       tsort
-    redcarpet (3.6.1)
     regexp_parser (2.11.3)
     reline (0.6.3)
       io-console (~> 0.5)
@@ -511,7 +516,7 @@ GEM
     ruby2_keywords (0.0.5)
     rubyzip (3.2.2)
     securerandom (0.4.1)
-    selenium-webdriver (4.39.0)
+    selenium-webdriver (4.40.0)
       base64 (~> 0.2)
       logger (~> 1.4)
       rexml (~> 3.2, >= 3.2.5)
@@ -556,6 +561,7 @@ GEM
       net-sftp (>= 2.1.2)
       net-ssh (>= 2.8.0)
       ostruct
+    stackprof (0.2.27)
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.2.0)
@@ -568,7 +574,7 @@ GEM
     timeout (0.6.0)
     trilogy (2.9.0)
     tsort (0.2.0)
-    turbo-rails (2.0.20)
+    turbo-rails (2.0.21)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
     tzinfo (2.0.6)
@@ -626,6 +632,7 @@ GEM
       railties
       yabeda (~> 0.8)
     zeitwerk (2.7.4)
+    zip_kit (6.3.4)
 
 PLATFORMS
   aarch64-linux
@@ -639,6 +646,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  actionpack-xml_parser
   activeresource
   audits1984!
   autotuner
@@ -654,6 +662,7 @@ DEPENDENCIES
   faker
   fizzy-saas!
   geared_pagination (~> 1.2)
+  gvltools
   image_processing (~> 1.14)
   importmap-rails
   jbuilder
@@ -672,11 +681,9 @@ DEPENDENCIES
   rack-mini-profiler
   rails!
   rails_structured_logging!
-  redcarpet
   rouge
   rqrcode
   rubocop-rails-omakase
-  rubyzip
   selenium-webdriver
   sentry-rails
   sentry-ruby
@@ -684,6 +691,7 @@ DEPENDENCIES
   solid_cache (~> 1.0)
   solid_queue (~> 1.2)
   sqlite3 (>= 2.0)
+  stackprof
   stimulus-rails
   stripe (~> 18.0)
   thruster
@@ -703,6 +711,7 @@ DEPENDENCIES
   yabeda-prometheus-mmap
   yabeda-puma-plugin
   yabeda-rails
+  zip_kit
 
 BUNDLED WITH
    2.7.2
